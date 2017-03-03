@@ -1,2 +1,264 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .btn-num {
+            width: calc(30% - 20px);
+            height: calc(22% - 20px);
+            font-size:24px;
+            margin-right:20px;
+            margin-bottom:20px;
+        }
+        .btn-select-challenge {
+            margin-right:10px; margin-bottom:10px;
+        }
+        
+        .challengebox {
+            border:solid 2px #888;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            /*font-size:20em;*/
+            height: calc(22% - 20px);
+            min-height: 70px;
+            background-repeat: no-repeat;
+            background-size:contain;
+            background-position:right;
 
-test
+        }
+
+        .challengebox-no {
+            background-image:url(data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAMAAADyHTlpAAAB1FBMVEUAAADhcEbkdUL0lizuiDTrgjf0liv0lSzwjDHthjXshTX3nSj2mSr2mSrvjDLvizHpgDr1lyr1mSrwjjDwjTHxji7vijHvijHvijPtiDTshDb2nSnyki7ykS7ykC3ykC7rjzrrjjrvijHuhzPthzPqgTrqgjjshDbshDXxkDDzkizxkDDzki3tiDXuiDTshTbrhDf/xyr/xSr/1Wz/3IT/ykn/2Hj/4pr/34/9uCj/zVT4oCf/0WD/5aT/6K7/yyv+wCj8tij/yir/67n7rif/yTb7qyb8tCf9uij5oyf+wyn3nij/ykL/yC/5pyf7rCX/7cX/0Vr/yjr+zDD9vCj5piaNUCL/zUz9uS36z1//y0bHpTz8sSaESyBuQhxXKQ9ZJQ7/4Zb/2Xz/1nWohDP4yjL1xinwwCjetif6pyaLZiTAmCKtiR9dMxH/7cP/5qr/5KHyylz+y1b4y1PqwU/2yTysizr9wDnVtDnbtzfBnzavjTSxjjGXdTH+xC+Wbyv3yir6yCqLXCd8WCbPrCWaWSXPpiSHUiPDmyK8lSG4kCB8Rx6jfh10Qx2bdByDWxh0TBVrQRP/3Ir+yE71yUn+xEH+xD6ohTDFqyXMpCS0jyChgR6ACgAXAAAAMXRSTlMAAwbsbiLm3JJNO/z184t/IuzysZ2db2Z6Z0X80dGxsJWIbkVFKysrK9HR0NB6Z0Y6UuurcwAAAwxJREFUOMuNlWdb2lAUgAMEEAQFZ511a3cTsRiiJsEMNmWqIFL3HnXvvbWO7vFne0nyoMz2/XQe7svJSc6950JJSOX1pfl5efmlDXIplAVJS0m1UpuLA3K1yuqSZkkmUV2ssAfc/VQvgOp3B+yKYnVaWZ6jt7qptcXhz4MLC8b24cU1ym2V5chTU6qe4+7eL4b57rn3PHPdnUNtmBuvVCUlltbpA9y3oa7uBOaHvnOTeliaYD7RsJjJ2JXCoAljNU8euZI6DWvxGDvTYPRY3Br4oQaVnrX0tBvTMmiysDJV/N1fBjCvoT0DBgfmqpKLj8/Bud1WQ0Zadzk8RyhBrWdJx/C7zIRIWqbmkxZbKdTTmgUPilmLYmlbFCzJeDoE+j72daSEHoakFU1ALbFzKGMSWN45Wl0SwqXVo51l8WcvStlh8PWfBiwo08bTMzLwaSDcw4dhEI6AMIYX8bsKpZBcyZIIr4YcK1OR4NUPLwPwjlwFI1NfBZVBSFqpg+q1/TbE6Qg5GCcyuhc8iWwTCIDYjpwE91YYryPU5nAiNq7gDVSaS6EI4nTy65tnwcMNcyw0bxwGzzZj/3IyYA2lcl9D+TgGVJHR8Na6Twh961vh0fgCiuH5UJ6oioKPQEQInw95rOZBNaKaHdCEGqj2P1W8Vnitf6tURRnUEPtYiZjNBEGYzQkqV1AOWkCTCR4xNvFr+vJy+nRiLG7zLeAb+0jcP765m/0AiEZn72bGEQGhsWC7PBRLHN9Go/e3NzMX5+fTv6//TIh5he0CNSviFezPzN5fn44fxEoVCo4/X9EobG3xcxE/py7GwXIKwtYGqGViWvPYAfDSIBwY8RjakCzYKOEYAuSVkxiarVOuF7r4yJCxFjSj6edHhogE1gA3k0lrYUnSeLOlrdPCal8ljkJYNsmRaEpKknLJYGnyKK7CaQzICSJG489UkjQDXmalKT9pQwVIP0WDAa9Le228LVLYXTRHYQCKo112RZE64x3TBBcqC/jLqKJAWQg3AjEzUl15WeyKKyvXJV9xfwHV+DwL3fD4QAAAAABJRU5ErkJggg==);
+        }
+        .challengebox-yeah {
+            background-image:url(data:image/gif;base64,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);
+        }
+
+        #question, #result {
+            font-size:30px;
+            font-weight:bold;
+        }
+        
+    </style>
+</head>
+<body>
+<br>
+
+<div id="select" class="container">
+    <div class="form-group">
+        <label for="num">Wieviele Aufgaben?</label>
+        <input name="num" value="150" class="form-control" id="num" placeholder="">
+    </div>
+    <div id="challenge-select"></div>
+    <div>
+        <button type="submit" class="btn btn-default js-start">Start</button>
+    </div>
+</div>
+
+
+<div id="main" class="row" style="display:none;margin-left:2%">
+
+    <div class="col-sm-5">
+        <div class="challengebox alert"><span id="question" class="resize"></span><span id="result"></span></div>
+
+
+
+        <div id="infoalert" class="rf alert alert-success">
+        &nbsp;<strong></strong>
+        </div>
+        <div style="margin-bottom:1px;">Noch <span id="rest">d</span></div>
+
+    </div>
+ 
+     <div class="col-sm-7">
+        <div>
+            <button type="button" data-num="1" class="btnd-1 btn btn-num btn-primary">1</button>
+            <button type="button" data-num="2" class="btnd-2 btn btn-num btn-primary">2</button>
+            <button type="button" data-num="3" class="btnd-3 btn btn-num btn-primary">3</button>
+        </div>
+        <div>
+            <button type="button" data-num="4" class="btnd-4 btn btn-num btn-primary">4</button>
+            <button type="button" data-num="5" class="btnd-5 btn btn-num btn-primary">5</button>
+            <button type="button" data-num="6" class="btnd-6 btn btn-num btn-primary">6</button>
+        </div>
+         <div>
+            <button type="button" data-num="7" class="btnd-7 btn btn-num btn-primary">7</button>
+            <button type="button" data-num="8" class="btnd-8 btn btn-num btn-primary">8</button>
+            <button type="button" data-num="9" class="btnd-9 btn btn-num btn-primary">9</button>
+         </div>
+         <div>
+            <button type="button" data-num="0" class="btnd-10 btn btn-num btn-primary">0</button>
+            <button type="button" data-num="C" class="btnd-11 btn btn-num btn-primary">C</button>
+            <button type="button" data-num="OK" class="btnd-12 btn btn-num btn-primary">OK</button>
+        </div>
+     </div>
+
+</div>
+
+
+
+
+<script>
+var challengeDefinition = {
+    'multiplication': function(n) {
+
+        this.n = n;
+
+        this.init = function() {
+            var rand = Math.floor((Math.random() * 10) + 1);
+            if (Math.random() < 0.5) {
+                this.n1 = this.n;
+                this.n2 =  rand;
+            } else {
+                this.n2 = this.n;
+                this.n1 =  rand;
+            }
+            this.key = this.typ + 'x' + rand;
+        };
+
+        this.getText = function() {
+            return this.n1 + ' x ' + this.n2 + ' = ';
+        };
+
+        this.getResult = function() {
+            return this.n1 * this.n2;
+        };
+
+        this.getSelectButtonText = function() {
+            return '1x' + this.n;
+        }
+
+    }
+}
+
+
+var Mathe = function() {
+
+    this.availableChallenges = {
+        '1x1': new challengeDefinition.multiplication(1),
+        '1x2': new challengeDefinition.multiplication(2),
+        '1x3': new challengeDefinition.multiplication(3),
+        '1x4': new challengeDefinition.multiplication(4),
+        '1x5': new challengeDefinition.multiplication(5),
+        '1x6': new challengeDefinition.multiplication(6),
+        '1x7': new challengeDefinition.multiplication(7),
+        '1x8': new challengeDefinition.multiplication(8),
+        '1x9': new challengeDefinition.multiplication(9),
+        '1x10': new challengeDefinition.multiplication(10)
+    }
+
+    this.challenges = [];
+
+    this.number = 0;
+
+    this.current = null;
+
+    this.startTime = 0;
+
+    this.init = function(challenges, number) {
+        this.challenges = challenges;
+        this.number = number;
+    }
+
+    this.next = function() {
+        $('.challengebox').removeClass('alert-danger').removeClass('alert-success');
+        $('.btn-num').removeAttr('disabled');
+        $('#result').html('');
+        $('#rest').html( this.number );
+        this.startTime = new Date().getTime();
+
+        var n = Math.floor(Math.random() * this.challenges.length );
+        this.current = this.availableChallenges[ this.challenges[n] ];
+        this.current.init();
+        $('#question').html( this.current.getText() );
+
+    };
+
+    this.resolve = function(result) {
+
+        var time = ((new Date().getTime() - this.startTime) / 1000).toFixed(2);
+        if (this.current.getResult() == result) {
+            $('.challengebox').removeClass('challengebox-no').addClass('alert-success challengebox-yeah');
+            $('#infoalert').html( 'Richtig! ' + time + 's');
+            this.number -= 1;
+            this.nextTimer(1);
+        } else {
+            $('.challengebox').removeClass('challengebox-yeah').addClass('alert-danger challengebox-no');
+            $('#infoalert').html( 'Falsch :( ' + time + 's');
+            this.number += 1;
+
+            this.nextTimer(1);
+        }
+    };
+
+    this.renderChallengeButtons = function() {
+        $('#challenge-select').html('');
+        for (key in this.availableChallenges) {
+            $('#challenge-select').append( $('<button type="button" class="js-sel btn btn-default btn-lg btn-select-challenge" data-val="' + key + '">' + this.availableChallenges[key].getSelectButtonText() + '</button>'));
+        }
+    };
+    
+    this.nextTimer = function(n) {
+        if (n<13) {
+            self = this;
+            window.setTimeout( function() { self.nextTimer(n+1); }, 100);
+        } else {
+            this.next();
+        }
+    };
+
+}
+
+$(function() {
+
+
+
+    var M = new Mathe();
+    M.renderChallengeButtons();
+
+    $(document).on('click', '.js-sel', function(e) {
+        e.preventDefault();
+        $(this).toggleClass('btn-success');
+        $(this).blur();
+    });
+
+    $('.js-start').on('click', function(e) {
+        e.preventDefault();
+        $('#select').hide();
+        $('#main').show();
+        var c = [];
+        $('.js-sel.btn-success').each(function(el) {
+            c.push( $(this).data('val') );
+        });
+        M.init( c, $('#num').val() );
+        M.next();
+    });
+
+    $('.btn-num').click(function() {
+        var num = $(this).data('num');
+        if (num == 'C') {
+            $('#result').html('');
+        } else if (num == 'OK') {
+            $('.btn-num').attr('disabled', 'disabled');
+            M.resolve( $('#result').html() );
+        } else {
+            $('#result').html( $('#result').html() + num );
+        }
+
+    });
+
+    $('#select').hide();
+    $('#main').show();
+    M.init( ['1x1'], $('#num').val() );
+    M.next();
+
+
+});
+
+</script>
+
+</body>
+</html>
