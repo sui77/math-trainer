@@ -1,5 +1,7 @@
 <html>
 <head>
+    <title>mathe trainer</title>
+    <meta charset="utf-8" /> 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
@@ -70,23 +72,23 @@
             <table class="table table-striped">
                 <tr>
                     <td>Noch zu lösen</td>
-                    <td id="stat-remaining"></td>
+                    <td id="stat-remaining" class="text-right"></td>
                 </tr>
                 <tr>
                     <td>Richtig</td>
-                    <td id="stat-correct"></td>
+                    <td id="stat-correct" class="text-right"></td>
                 </tr>
                 <tr>
                     <td>Falsch</td>
-                    <td id="stat-wrong"></td>
+                    <td id="stat-wrong" class="text-right"></td>
                 </tr>
                 <tr>
                     <td>Gesamtzeit</td>
-                    <td id="stat-timetotal">-</td>
+                    <td id="stat-timetotal" class="text-right">-</td>
                 </tr>
                 <tr>
                     <td>Durchschnittszeit</td>
-                    <td id="stat-timeaverage">-</td>
+                    <td id="stat-timeaverage" class="text-right">-</td>
                 </tr>
             </table>
         </div>
@@ -110,8 +112,8 @@
             <button type="button" data-num="9" class="btnd-9 btn btn-num btn-primary">9</button>
          </div>
          <div>
-            <button type="button" data-num="0" class="btnd-10 btn btn-num btn-primary">0</button>
             <button type="button" data-num="C" class="btnd-11 btn btn-num btn-primary">C</button>
+            <button type="button" data-num="0" class="btnd-10 btn btn-num btn-primary">0</button>
             <button type="button" data-num="OK" class="btnd-12 btn btn-num btn-primary">OK</button>
         </div>
      </div>
@@ -136,7 +138,6 @@ var challengeDefinition = {
                 this.n2 = this.n;
                 this.n1 =  rand;
             }
-            this.key = this.typ + 'x' + rand;
         };
 
         this.getText = function() {
@@ -151,7 +152,80 @@ var challengeDefinition = {
             return '1x' + this.n;
         }
 
+    },
+    'division': function(n) {
+
+        this.n = n;
+
+        this.init = function() {
+            var rand = Math.floor((Math.random() * 10) + 1);
+            this.n1 = this.n * rand;
+            this.n2 =  this.n;
+        };
+
+        this.getText = function() {
+            return this.n1 + ' / ' + this.n2 + ' = ';
+        };
+
+        this.getResult = function() {
+            return this.n1 / this.n2;
+        };
+
+        this.getSelectButtonText = function() {
+            return '/' + this.n;
+        }
+
+    },
+
+    'addition': function(n) {
+
+        this.n = n;
+
+        this.init = function() {
+            do {
+                this.n1 = Math.floor((Math.random() * this.n) + 1);
+                this.n2 = Math.floor((Math.random() * this.n) + 1);
+            } while (this.n1 + this.n2 > this.n);
+        };
+
+        this.getText = function() {
+            return this.n1 + ' + ' + this.n2 + ' = ';
+        };
+
+        this.getResult = function() {
+            return this.n1 + this.n2;
+        };
+
+        this.getSelectButtonText = function() {
+            return '+ bis ' + this.n;
+        }
+
+    },
+    'substraction': function(n) {
+
+        this.n = n;
+
+        this.init = function() {
+            do {
+                this.n1 = Math.floor((Math.random() * this.n) + 1);
+                this.n2 = Math.floor((Math.random() * this.n) + 1);
+            } while (this.n1 - this.n2 < 0);
+        };
+
+        this.getText = function() {
+            return this.n1 + ' - ' + this.n2 + ' = ';
+        };
+
+        this.getResult = function() {
+            return this.n1 - this.n2;
+        };
+
+        this.getSelectButtonText = function() {
+            return '- bis ' + this.n;
+        }
+
     }
+
 }
 
 
@@ -167,7 +241,23 @@ var Mathe = function() {
         '1x7': new challengeDefinition.multiplication(7),
         '1x8': new challengeDefinition.multiplication(8),
         '1x9': new challengeDefinition.multiplication(9),
-        '1x10': new challengeDefinition.multiplication(10)
+        '1x10': new challengeDefinition.multiplication(10),
+
+        '1/1': new challengeDefinition.division(1),
+        '1/2': new challengeDefinition.division(2),
+        '1/3': new challengeDefinition.division(3),
+        '1/4': new challengeDefinition.division(4),
+        '1/5': new challengeDefinition.division(5),
+        '1/6': new challengeDefinition.division(6),
+        '1/7': new challengeDefinition.division(7),
+        '1/8': new challengeDefinition.division(8),
+        '1/9': new challengeDefinition.division(9),
+        '1/10': new challengeDefinition.division(10),
+
+        'plus10': new challengeDefinition.addition(10),
+        'plus20': new challengeDefinition.addition(20),
+        'minus10': new challengeDefinition.substraction(10),
+        'minus20': new challengeDefinition.substraction(20)
     }
 
     this.challenges = [];
@@ -202,6 +292,7 @@ var Mathe = function() {
 
     this.next = function(repeatchallenge) {
         $('.challengebox').removeClass('alert-danger').removeClass('alert-success');
+        $('.challengebox').removeClass('challengebox-no').removeClass('challengebox-yeah');
         $('.btn-num').removeAttr('disabled');
         $('#result').html('');
 
@@ -274,7 +365,12 @@ $(function() {
         M.next();
     });
 
-    $('.btn-num').click(function() {
+    $(document).on('click touchstart', '.btn-num', function(event) {
+        if(event.handled === false) return
+        event.stopPropagation();
+        event.preventDefault();
+        event.handled = true;
+    
         var num = $(this).data('num');
         if (num == 'C') {
             $('#result').html('');
@@ -287,11 +383,12 @@ $(function() {
 
     });
 
+    /*
     $('#select').hide();
     $('#main').show();
     M.init( ['1x1'], $('#num').val() );
     M.next();
-
+    */
 
 });
 
