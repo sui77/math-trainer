@@ -9,6 +9,7 @@
             width: calc(30% - 20px);
             height: calc(22% - 20px);
             font-size:24px;
+
             margin-right:20px;
             margin-bottom:20px;
         }
@@ -65,11 +66,30 @@
         <div class="challengebox alert"><span id="question" class="resize"></span><span id="result"></span></div>
 
 
-
-        <div id="infoalert" class="rf alert alert-success">
-        &nbsp;<strong></strong>
+        <div style="margin-bottom:1px;">
+            <table class="table table-striped">
+                <tr>
+                    <td>Noch zu lösen</td>
+                    <td id="stat-remaining"></td>
+                </tr>
+                <tr>
+                    <td>Richtig</td>
+                    <td id="stat-correct"></td>
+                </tr>
+                <tr>
+                    <td>Falsch</td>
+                    <td id="stat-wrong"></td>
+                </tr>
+                <tr>
+                    <td>Gesamtzeit</td>
+                    <td id="stat-timetotal">-</td>
+                </tr>
+                <tr>
+                    <td>Durchschnittszeit</td>
+                    <td id="stat-timeaverage">-</td>
+                </tr>
+            </table>
         </div>
-        <div style="margin-bottom:1px;">Noch <span id="rest">d</span></div>
 
     </div>
  
@@ -154,44 +174,61 @@ var Mathe = function() {
 
     this.number = 0;
 
+    this.solved = { correct: 0, wrong: 0}
+
     this.current = null;
 
     this.startTime = 0;
 
+    this.timeTotal = 0;
+
+    this.previouskey = 'none';
+
     this.init = function(challenges, number) {
         this.challenges = challenges;
-        this.number = number;
+        this.number = number*1;
+        this.updateStats();
     }
 
-    this.next = function() {
+    this.updateStats = function() {
+        $('#stat-remaining').html( this.number-this.solved.correct );
+        $('#stat-correct').html( this.solved.correct );
+        $('#stat-wrong').html( this.solved.wrong );
+        if (this.timeTotal != 0) {
+            $('#stat-timetotal').html(Math.round(this.timeTotal / 1000) + 's');
+            $('#stat-timeaverage').html((this.timeTotal / (this.solved.correct + this.solved.wrong) / 1000).toFixed(2) + 's');
+        }
+    }
+
+    this.next = function(repeatchallenge) {
         $('.challengebox').removeClass('alert-danger').removeClass('alert-success');
         $('.btn-num').removeAttr('disabled');
         $('#result').html('');
-        $('#rest').html( this.number );
-        this.startTime = new Date().getTime();
 
-        var n = Math.floor(Math.random() * this.challenges.length );
-        this.current = this.availableChallenges[ this.challenges[n] ];
-        this.current.init();
+        this.startTime = new Date().getTime();
+        if (!repeatchallenge) {
+            var n = Math.floor(Math.random() * this.challenges.length);
+            this.current = this.availableChallenges[this.challenges[n]];
+            this.current.init();
+        }
         $('#question').html( this.current.getText() );
 
-    };
+    }
 
     this.resolve = function(result) {
 
-        var time = ((new Date().getTime() - this.startTime) / 1000).toFixed(2);
+        var time = (new Date().getTime() - this.startTime);
         if (this.current.getResult() == result) {
             $('.challengebox').removeClass('challengebox-no').addClass('alert-success challengebox-yeah');
-            $('#infoalert').html( 'Richtig! ' + time + 's');
-            this.number -= 1;
-            this.nextTimer(1);
+            this.solved.correct += 1;
+            this.nextTimer(1, false);
         } else {
             $('.challengebox').removeClass('challengebox-yeah').addClass('alert-danger challengebox-no');
-            $('#infoalert').html( 'Falsch :( ' + time + 's');
-            this.number += 1;
-
-            this.nextTimer(1);
+            this.solved.wrong += 1;
+            this.nextTimer(1, true);
         }
+        this.timeTotal += time;
+        this.updateStats();
     };
 
     this.renderChallengeButtons = function() {
@@ -201,12 +238,12 @@ var Mathe = function() {
         }
     };
     
-    this.nextTimer = function(n) {
-        if (n<13) {
+    this.nextTimer = function(n, repeatChallenge) {
+        if (n<3) {
             self = this;
-            window.setTimeout( function() { self.nextTimer(n+1); }, 100);
+            window.setTimeout( function() { self.nextTimer(n+1, repeatChallenge); }, 1000);
         } else {
-            this.next();
+            this.next(repeatChallenge);
         }
     };
 
