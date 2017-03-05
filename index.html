@@ -342,7 +342,7 @@ var Mathe = function() {
 
 $(function() {
 
-
+    var clickEvent = ((document.ontouchstart!==null)?'click':'touchstart');
 
     var M = new Mathe();
     M.renderChallengeButtons();
@@ -365,7 +365,7 @@ $(function() {
         M.next();
     });
 
-    $(document).on('click touchstart', '.btn-num', function(event) {
+    $(document).on(clickEvent, '.btn-num', function(event) {
         if(event.handled === false) return
         event.stopPropagation();
         event.preventDefault();
