@@ -71,65 +71,65 @@
     </div>
 </div>
 
+<div class="container-fluid">
+    <div id="main" class="row" style="display:none;margin-left:2%">
 
-<div id="main" class="row" style="display:none;margin-left:2%">
-
-    <div class="col-sm-5">
-        <div class="challengebox alert"><span id="question" class="resize"></span><span id="result"></span></div>
+        <div class="col-sm-5">
+            <div class="challengebox alert"><span id="question" class="resize"></span><span id="result"></span></div>
 
 
-        <div style="margin-bottom:1px;">
-            <table class="table table-striped">
-                <tr>
-                    <td>Noch zu lösen</td>
-                    <td id="stat-remaining" class="text-right"></td>
-                </tr>
-                <tr>
-                    <td>Richtig</td>
-                    <td id="stat-correct" class="text-right"></td>
-                </tr>
-                <tr>
-                    <td>Falsch</td>
-                    <td id="stat-wrong" class="text-right"></td>
-                </tr>
-                <tr>
-                    <td>Gesamtzeit</td>
-                    <td id="stat-timetotal" class="text-right">-</td>
-                </tr>
-                <tr>
-                    <td>Durchschnittszeit</td>
-                    <td id="stat-timeaverage" class="text-right">-</td>
-                </tr>
-            </table>
+            <div style="margin-bottom:1px;">
+                <table class="table table-hover">
+                    <tr>
+                        <td>Noch zu lösen</td>
+                        <td id="stat-remaining" class="text-right"></td>
+                    </tr>
+                    <tr class="success">
+                        <td>Richtig</td>
+                        <td id="stat-correct" class="text-right"></td>
+                    </tr>
+                    <tr class="danger">
+                        <td>Falsch</td>
+                        <td id="stat-wrong" class="text-right"></td>
+                    </tr>
+                    <tr>
+                        <td>Gesamtzeit</td>
+                        <td id="stat-timetotal" class="text-right">-</td>
+                    </tr>
+                    <tr>
+                        <td>Durchschnittszeit</td>
+                        <td id="stat-timeaverage" class="text-right">-</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="col-sm-7">
+            <div>
+                <button type="button" data-num="1" class="btnd-1 btn btn-num btn-primary">1</button>
+                <button type="button" data-num="2" class="btnd-2 btn btn-num btn-primary">2</button>
+                <button type="button" data-num="3" class="btnd-3 btn btn-num btn-primary">3</button>
+            </div>
+            <div>
+                <button type="button" data-num="4" class="btnd-4 btn btn-num btn-primary">4</button>
+                <button type="button" data-num="5" class="btnd-5 btn btn-num btn-primary">5</button>
+                <button type="button" data-num="6" class="btnd-6 btn btn-num btn-primary">6</button>
+            </div>
+            <div>
+                <button type="button" data-num="7" class="btnd-7 btn btn-num btn-primary">7</button>
+                <button type="button" data-num="8" class="btnd-8 btn btn-num btn-primary">8</button>
+                <button type="button" data-num="9" class="btnd-9 btn btn-num btn-primary">9</button>
+            </div>
+            <div>
+                <button type="button" data-num="C" class="btnd-11 btn btn-num btn-primary">C</button>
+                <button type="button" data-num="0" class="btnd-10 btn btn-num btn-primary">0</button>
+                <button type="button" data-num="OK" class="btnd-12 btn btn-num btn-primary">OK</button>
+            </div>
         </div>
 
     </div>
-
-    <div class="col-sm-7">
-        <div>
-            <button type="button" data-num="1" class="btnd-1 btn btn-num btn-primary">1</button>
-            <button type="button" data-num="2" class="btnd-2 btn btn-num btn-primary">2</button>
-            <button type="button" data-num="3" class="btnd-3 btn btn-num btn-primary">3</button>
-        </div>
-        <div>
-            <button type="button" data-num="4" class="btnd-4 btn btn-num btn-primary">4</button>
-            <button type="button" data-num="5" class="btnd-5 btn btn-num btn-primary">5</button>
-            <button type="button" data-num="6" class="btnd-6 btn btn-num btn-primary">6</button>
-        </div>
-        <div>
-            <button type="button" data-num="7" class="btnd-7 btn btn-num btn-primary">7</button>
-            <button type="button" data-num="8" class="btnd-8 btn btn-num btn-primary">8</button>
-            <button type="button" data-num="9" class="btnd-9 btn btn-num btn-primary">9</button>
-        </div>
-        <div>
-            <button type="button" data-num="C" class="btnd-11 btn btn-num btn-primary">C</button>
-            <button type="button" data-num="0" class="btnd-10 btn btn-num btn-primary">0</button>
-            <button type="button" data-num="OK" class="btnd-12 btn btn-num btn-primary">OK</button>
-        </div>
-    </div>
-
 </div>
-
 
 <script type="text/javascript">
     var challengeDefinition = {
