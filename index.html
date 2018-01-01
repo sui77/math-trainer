@@ -55,18 +55,19 @@
 </head>
 <body>
 <div class="jumbotron text-center">
-    <h1>Mathe-Trainer</h1>
+    <h1>Mathe Trainer</h1>
     <p>Einfacher Mathe Trainer für Grundrechenarten in der Grundschule.</p>
 </div>
 
 <div id="select" class="container">
     <div class="form-group">
-        <label for="num">Wieviele Aufgaben?</label>
-        <input name="num" value="150" class="form-control" id="num" placeholder="">
+        <label for="num">Wie viele Aufgaben?</label>
+        <input type="number" name="num" value="150" class="form-control" id="num" placeholder="">
     </div>
     <div id="challenge-select"></div>
     <div>
-        <button type="submit" class="btn btn-default js-start">Start</button>
+        <button type="submit" class="btn btn-default js-start" autofocus>Start</button>
+        <span class="text-danger" style="display: none">Du musst mindestens eine Aufgabe auswählen!</span>
     </div>
 </div>
 
@@ -298,19 +299,25 @@
         };
 
         this.next = function (repeatchallenge) {
-            $('.challengebox').removeClass('alert-danger').removeClass('alert-success');
-            $('.challengebox').removeClass('challengebox-no').removeClass('challengebox-yeah');
-            $('.btn-num').removeAttr('disabled');
-            $('#result').html('');
+            if (parseInt($('#stat-remaining').html()) > 0) {
+                $('.challengebox').removeClass('alert-danger').removeClass('alert-success');
+                $('.challengebox').removeClass('challengebox-no').removeClass('challengebox-yeah');
+                $('.btn-num').removeAttr('disabled');
+                $('#result').html('');
 
-            this.startTime = new Date().getTime();
-            if (!repeatchallenge) {
-                var n = Math.floor(Math.random() * this.challenges.length);
-                this.current = this.availableChallenges[this.challenges[n]];
-                this.current.init();
+                this.startTime = new Date().getTime();
+                if (!repeatchallenge) {
+                    var n = Math.floor(Math.random() * this.challenges.length);
+                    this.current = this.availableChallenges[this.challenges[n]];
+                    this.current.init();
+                }
+                $('#question').html(this.current.getText());
+            } else {
+                $('#select').show();
+                $('#main').hide();
+                this.number = 0;
+                this.solved = {correct: 0, wrong: 0};
             }
-            $('#question').html(this.current.getText());
-
         };
 
         this.resolve = function (result) {
@@ -360,18 +367,23 @@
             e.preventDefault();
             $(this).toggleClass('btn-success');
             $(this).blur();
+            $(".js-start").next().hide();
         });
 
         $('.js-start').on('click', function (e) {
             e.preventDefault();
-            $('#select').hide();
-            $('#main').show();
             var c = [];
             $('.js-sel.btn-success').each(function (el) {
                 c.push($(this).data('val'));
             });
-            M.init(c, $('#num').val());
-            M.next();
+            if (c.length !== 0) {
+                $('#select').hide();
+                $('#main').show();
+                M.init(c, $('#num').val());
+                M.next();
+            } else {
+                $(".js-start").next().show();
+            }
         });
 
         $(document).on(clickEvent, '.btn-num', function (event) {
@@ -389,7 +401,6 @@
             } else {
                 $('#result').html($('#result').html() + num);
             }
-
         });
 
         $(document).on('keyup', function (e) {
@@ -397,43 +408,43 @@
             switch (e.keyCode) {
                 case 96:
                 case 48:
-                    $('#result').html($('#result').html() + '0');
+                    add_result(0);
                     break;
                 case 97:
                 case 49:
-                    $('#result').html($('#result').html() + '1');
+                    add_result(1);
                     break;
                 case 98:
                 case 50:
-                    $('#result').html($('#result').html() + '2');
+                    add_result(2);
                     break;
                 case 99:
                 case 51:
-                    $('#result').html($('#result').html() + '3');
+                    add_result(3);
                     break;
                 case 100:
                 case 52:
-                    $('#result').html($('#result').html() + '4');
+                    add_result(4);
                     break;
                 case 101:
                 case 53:
-                    $('#result').html($('#result').html() + '5');
+                    add_result(5);
                     break;
                 case 102:
                 case 54:
-                    $('#result').html($('#result').html() + '6');
+                    add_result(6);
                     break;
                 case 103:
                 case 55:
-                    $('#result').html($('#result').html() + '7');
+                    add_result(7);
                     break;
                 case 104:
                 case 56:
-                    $('#result').html($('#result').html() + '8');
+                    add_result(8);
                     break;
                 case 105:
                 case 57:
-                    $('#result').html($('#result').html() + '9');
+                    add_result(9);
                     break;
                 case 13:
                     $('.btn-num').attr('disabled', 'disabled');
@@ -445,6 +456,12 @@
                     break;
             }
         });
+
+        function add_result(n) {
+            if ($('.btn-num').attr('disabled') !== 'disabled') {
+                $('#result').html($('#result').html() + n);
+            }
+        }
 
         /*
         $('#select').hide();
