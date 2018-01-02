@@ -54,10 +54,8 @@
     </style>
 </head>
 <body>
-<div class="jumbotron text-center">
-    <h1>Mathe Trainer</h1>
-    <p>Einfacher Mathe Trainer für Grundrechenarten in der Grundschule.</p>
-</div>
+
+<h5 class="text-center" style="font-weight: bold">Mathe Trainer</h5>
 
 <div id="select" class="container">
     <div class="form-group">
@@ -77,35 +75,42 @@
         <div class="col-sm-5">
             <div class="challengebox alert"><span id="question" class="resize"></span><span id="result"></span></div>
 
-
-            <div style="margin-bottom:1px;">
-                <table class="table table-hover">
-                    <tr>
-                        <td>Noch zu lösen</td>
-                        <td id="stat-remaining" class="text-right"></td>
-                    </tr>
-                    <tr class="success">
-                        <td>Richtig</td>
-                        <td id="stat-correct" class="text-right"></td>
-                    </tr>
-                    <tr class="danger">
-                        <td>Falsch</td>
-                        <td id="stat-wrong" class="text-right"></td>
-                    </tr>
-                    <tr>
-                        <td>Gesamtzeit</td>
-                        <td id="stat-timetotal" class="text-right">-</td>
-                    </tr>
-                    <tr>
-                        <td>Durchschnittszeit</td>
-                        <td id="stat-timeaverage" class="text-right">-</td>
-                    </tr>
-                </table>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse1" style="display: block">Statistiken</a>
+                        </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse">
+                        <table class="table table-hover">
+                            <tr>
+                                <td>Noch zu lösen</td>
+                                <td id="stat-remaining" class="text-right"></td>
+                            </tr>
+                            <tr class="success">
+                                <td>Richtig</td>
+                                <td id="stat-correct" class="text-right"></td>
+                            </tr>
+                            <tr class="danger">
+                                <td>Falsch</td>
+                                <td id="stat-wrong" class="text-right"></td>
+                            </tr>
+                            <tr>
+                                <td>Gesamtzeit</td>
+                                <td id="stat-timetotal" class="text-right">-</td>
+                            </tr>
+                            <tr>
+                                <td>Durchschnittszeit</td>
+                                <td id="stat-timeaverage" class="text-right">-</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
-
         </div>
 
-        <div class="col-sm-7">
+        <div class="col-sm-7 text-center">
             <div>
                 <button type="button" data-num="1" class="btnd-1 btn btn-num btn-primary">1</button>
                 <button type="button" data-num="2" class="btnd-2 btn btn-num btn-primary">2</button>
