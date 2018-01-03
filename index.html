@@ -289,7 +289,7 @@
 
         this.init = function (challenges, number) {
             this.challenges = challenges;
-            this.number = number * 1;
+            this.number += number * 1;
             this.updateStats();
         };
 
@@ -297,7 +297,7 @@
             $('#stat-remaining').html(this.number - this.solved.correct);
             $('#stat-correct').html(this.solved.correct);
             $('#stat-wrong').html(this.solved.wrong);
-            if (this.timeTotal != 0) {
+            if (this.timeTotal !== 0) {
                 $('#stat-timetotal').html(Math.round(this.timeTotal / 1000) + 's');
                 $('#stat-timeaverage').html((this.timeTotal / (this.solved.correct + this.solved.wrong) / 1000).toFixed(2) + 's');
             }
@@ -320,8 +320,6 @@
             } else {
                 $('#select').show();
                 $('#main').hide();
-                this.number = 0;
-                this.solved = {correct: 0, wrong: 0};
             }
         };
 
