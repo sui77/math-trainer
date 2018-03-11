@@ -4,11 +4,13 @@
     <title>Mathe Trainer</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <link rel="icon mask-icon" type="image/svg+xml" href="favicon.svg" sizes="any">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
             integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <style>
         .btn-num {
             width: calc(30% - 20px);
@@ -62,6 +64,7 @@
         <label for="num">Wie viele Aufgaben?</label>
         <input type="number" name="num" value="150" class="form-control" id="num" placeholder="">
     </div>
+    <label>Welche Aufgaben?</label>
     <div id="challenge-select"></div>
     <div>
         <button type="submit" class="btn btn-default js-start" autofocus>Start</button>
@@ -75,36 +78,38 @@
         <div class="col-sm-5">
             <div class="challengebox alert"><span id="question" class="resize"></span><span id="result"></span></div>
 
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#collapse1" style="display: block">Statistiken</a>
-                        </h4>
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            <h4>Statistiken</h4>
+                        </a>
                     </div>
-                    <div id="collapse1" class="panel-collapse collapse">
-                        <table class="table table-hover">
-                            <tr>
-                                <td>Noch zu lösen</td>
-                                <td id="stat-remaining" class="text-right"></td>
-                            </tr>
-                            <tr class="success">
-                                <td>Richtig</td>
-                                <td id="stat-correct" class="text-right"></td>
-                            </tr>
-                            <tr class="danger">
-                                <td>Falsch</td>
-                                <td id="stat-wrong" class="text-right"></td>
-                            </tr>
-                            <tr>
-                                <td>Gesamtzeit</td>
-                                <td id="stat-timetotal" class="text-right">-</td>
-                            </tr>
-                            <tr>
-                                <td>Durchschnittszeit</td>
-                                <td id="stat-timeaverage" class="text-right">-</td>
-                            </tr>
-                        </table>
+                    <div id="collapseOne" class="collapse">
+                        <div class="card-body">
+                            <table class="table table-hover">
+                                <tr>
+                                    <td>Noch zu lösen</td>
+                                    <td id="stat-remaining" class="text-right"></td>
+                                </tr>
+                                <tr class="table-success">
+                                    <td>Richtig</td>
+                                    <td id="stat-correct" class="text-right"></td>
+                                </tr>
+                                <tr class="table-danger">
+                                    <td>Falsch</td>
+                                    <td id="stat-wrong" class="text-right"></td>
+                                </tr>
+                                <tr>
+                                    <td>Gesamtzeit</td>
+                                    <td id="stat-timetotal" class="text-right">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Durchschnittszeit</td>
+                                    <td id="stat-timeaverage" class="text-right">-</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -112,24 +117,24 @@
 
         <div class="col-sm-7 text-center">
             <div>
-                <button type="button" data-num="1" class="btnd-1 btn btn-num btn-primary">1</button>
-                <button type="button" data-num="2" class="btnd-2 btn btn-num btn-primary">2</button>
-                <button type="button" data-num="3" class="btnd-3 btn btn-num btn-primary">3</button>
+                <button type="button" data-num="1" class="btnd-1 btn btn-num btn-info">1</button>
+                <button type="button" data-num="2" class="btnd-2 btn btn-num btn-info">2</button>
+                <button type="button" data-num="3" class="btnd-3 btn btn-num btn-info">3</button>
             </div>
             <div>
-                <button type="button" data-num="4" class="btnd-4 btn btn-num btn-primary">4</button>
-                <button type="button" data-num="5" class="btnd-5 btn btn-num btn-primary">5</button>
-                <button type="button" data-num="6" class="btnd-6 btn btn-num btn-primary">6</button>
+                <button type="button" data-num="4" class="btnd-4 btn btn-num btn-info">4</button>
+                <button type="button" data-num="5" class="btnd-5 btn btn-num btn-info">5</button>
+                <button type="button" data-num="6" class="btnd-6 btn btn-num btn-info">6</button>
             </div>
             <div>
-                <button type="button" data-num="7" class="btnd-7 btn btn-num btn-primary">7</button>
-                <button type="button" data-num="8" class="btnd-8 btn btn-num btn-primary">8</button>
-                <button type="button" data-num="9" class="btnd-9 btn btn-num btn-primary">9</button>
+                <button type="button" data-num="7" class="btnd-7 btn btn-num btn-info">7</button>
+                <button type="button" data-num="8" class="btnd-8 btn btn-num btn-info">8</button>
+                <button type="button" data-num="9" class="btnd-9 btn btn-num btn-info">9</button>
             </div>
             <div>
-                <button type="button" data-num="C" class="btnd-11 btn btn-num btn-primary">C</button>
-                <button type="button" data-num="0" class="btnd-10 btn btn-num btn-primary">0</button>
-                <button type="button" data-num="OK" class="btnd-12 btn btn-num btn-primary">OK</button>
+                <button type="button" data-num="C" class="btnd-11 btn btn-num btn-info">C</button>
+                <button type="button" data-num="0" class="btnd-10 btn btn-num btn-info">0</button>
+                <button type="button" data-num="OK" class="btnd-12 btn btn-num btn-info">OK</button>
             </div>
         </div>
 
@@ -396,14 +401,15 @@
             event.handled = true;
 
             var num = $(this).data('num');
-            if (num == 'C') {
+            if (num === 'C') {
                 $('#result').html('');
-            } else if (num == 'OK') {
+            } else if (num === 'OK') {
                 $('.btn-num').attr('disabled', 'disabled');
                 M.resolve($('#result').html());
             } else {
-                $('#result').html($('#result').html() + num);
+                $('#result').append(num);
             }
+            $(".btn-num[data-num='OK']").focus();
         });
 
         $(document).on('keyup', function (e) {
@@ -411,43 +417,27 @@
             switch (e.keyCode) {
                 case 96:
                 case 48:
-                    add_result(0);
-                    break;
                 case 97:
                 case 49:
-                    add_result(1);
-                    break;
                 case 98:
                 case 50:
-                    add_result(2);
-                    break;
                 case 99:
                 case 51:
-                    add_result(3);
-                    break;
                 case 100:
                 case 52:
-                    add_result(4);
-                    break;
                 case 101:
                 case 53:
-                    add_result(5);
-                    break;
                 case 102:
                 case 54:
-                    add_result(6);
-                    break;
                 case 103:
                 case 55:
-                    add_result(7);
-                    break;
                 case 104:
                 case 56:
-                    add_result(8);
-                    break;
                 case 105:
                 case 57:
-                    add_result(9);
+                    if ($('.btn-num').attr('disabled') !== 'disabled') {
+                        $('#result').append(e.key);
+                    }
                     break;
                 case 13:
                     $('.btn-num').attr('disabled', 'disabled');
@@ -459,12 +449,6 @@
                     break;
             }
         });
-
-        function add_result(n) {
-            if ($('.btn-num').attr('disabled') !== 'disabled') {
-                $('#result').html($('#result').html() + n);
-            }
-        }
 
         /*
         $('#select').hide();
