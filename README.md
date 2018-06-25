@@ -3,4 +3,4 @@ Einfacher html/bootstrap/jquery Mathe Trainer für Grundrechenarten in der Grund
 
 Simple html/bootstrap/jquery math trainer for basic arithmetic operations in elementary school.
 
-=> http://mathe.sui.li
+=> https://mathe.sui.li
